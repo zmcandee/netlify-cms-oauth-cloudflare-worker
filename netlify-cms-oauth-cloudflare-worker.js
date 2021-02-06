@@ -3,12 +3,13 @@ addEventListener("fetch", event => {
 })
 
 // Secrets
+let GH_SCOPE = (typeof GH_SCOPE === undefined)? "repo,read:user": GH_SCOPE;
 const gh_scope = encodeURIComponent(GH_SCOPE || "repo,read:user");
-const gh_client_id = encodeURIComponent(GH_CLIENT_ID);
-const gh_client_secret = GH_CLIENT_SECRET;
-const gh_repo = encodeURIComponent(GH_REPO);
+const gh_client_id = encodeURIComponent(GH_CLIENT_ID || "");
+const gh_client_secret = GH_CLIENT_SECRET || "";
+const gh_repo = encodeURIComponent(GH_REPO || "");
 const state_secret = STATE_SECRET || "random_string";
-const extra_writable_json = JSON.parse(EXTRA_WRITABLE_JSON);
+const extra_writable_json = JSON.parse(EXTRA_WRITABLE_JSON || "");
 
 // Urls
 const authUrl = `https://github.com/login/oauth/authorize?response_type=code&client_id=${gh_client_id}&scope=${gh_scope}`;
