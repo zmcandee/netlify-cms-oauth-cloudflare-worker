@@ -1,0 +1,4 @@
+name = "netlify-cms-oauth-cloudflare-worker"
+type = "javascript"
+account_id = "c3255fb0f7ba5d121e9fe88b35b38c3c"
+workers_dev = true
