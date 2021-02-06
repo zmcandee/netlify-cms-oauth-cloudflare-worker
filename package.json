@@ -1,0 +1,13 @@
+{
+  "name": "netlify-cms-oauth-cloudflare-worker",
+  "version": "0.0.7",
+  "private": true,
+  "description": "A Cloudflare Worker OAuth2 client for netlify-cms",
+  "main": "netlify-cms-oauth-cloudflare-worker.js",
+  "repository": "https://github.com/zmcandee/netlify-cms-oauth-cloudflare-worker",
+  "release": {
+    "branches": [
+      "main"
+    ]
+  }
+}
