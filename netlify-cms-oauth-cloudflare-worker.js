@@ -3,12 +3,11 @@ addEventListener("fetch", event => {
 })
 
 // Secrets
-let GH_SCOPE = (typeof GH_SCOPE === undefined)? "repo,read:user": GH_SCOPE;
-const gh_scope = encodeURIComponent(GH_SCOPE || "repo,read:user");
+const gh_scope = encodeURIComponent(GH_SCOPE || "public_repo,read:user");
 const gh_client_id = encodeURIComponent(GH_CLIENT_ID || "");
 const gh_client_secret = GH_CLIENT_SECRET || "";
 const gh_repo = encodeURIComponent(GH_REPO || "");
-const state_secret = STATE_SECRET || "random_string";
+const state_secret = STATE_SECRET || "";
 const extra_writable_json = JSON.parse(EXTRA_WRITABLE_JSON || "");
 
 // Urls
@@ -85,7 +84,7 @@ async function handleRequest(request) {
   const requestURL = new URL(request.url)
   const path = requestURL.pathname
   
-  if(path === "/auth") {
+  if(path === "/auth") {  
     const state = stateString(state_secret)
     return Response.redirect(authUrl+`&state=${state}`)
   }
@@ -106,8 +105,8 @@ async function handleRequest(request) {
       client_secret: gh_client_secret
     };
 
-    // Return 401 on a ttl state violation,
-    if (!verifyState(params.state,state_secret))
+    // Return 401 on a ttl state violation if state_secret is set
+    if (state_secret && !verifyState(params.state,state_secret))
       return new Response("Session expired", {status: 401 })
 
     try {
