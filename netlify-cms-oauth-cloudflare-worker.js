@@ -64,7 +64,6 @@ async function githubUser( token ) {
 
 async function githubRepoAccess(user, repo, token) {
   const url = `${apiBaseUrl}/repos/${repo}/collaborators/${user}/permission`
-  console.log(url)
   const githubRepo = await fetch(url, 
     { method: 'GET',
       headers: {
@@ -124,7 +123,7 @@ async function handleRequest(request) {
       const token = results.access_token
       const ghuser = (await githubUser(token)).login
       const ghrepoaccess = (await githubRepoAccess(ghuser, gh_repo, token)).permission
-      console.log("ghuser: "+ghuser)
+      
       let postMsgStatus = ""
       let postMsgContent = {}
 
@@ -145,7 +144,6 @@ async function handleRequest(request) {
         }
         // Send extra json if user has write or access to gh_repo
         if (ghrepoaccess === "admin" || ghrepoaccess === "write") {
-          console.log("Providing extra JSON")
           postMsgContent = Object.assign(postMsgContent, extra_writable_json);
         }
       }
@@ -155,7 +153,6 @@ async function handleRequest(request) {
       <script>
       (function() {
         function recieveMessage(e) {
-          console.log("recieveMessage %o", e);
           // send message to main window with the app
           window.opener.postMessage('authorization:github:${postMsgStatus}:${JSON.stringify(postMsgContent)}', e.origin);
         }
@@ -168,7 +165,6 @@ async function handleRequest(request) {
 
     } catch (err) {
       // If we hit an error we'll handle that here
-      console.log(err);
       return new Response(err.stack || err, { status: 500 });
     }
   }
