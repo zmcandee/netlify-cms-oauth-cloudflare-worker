@@ -1,6 +1,6 @@
 {
   "name": "netlify-cms-oauth-cloudflare-worker",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "description": "A Cloudflare Worker OAuth2 client for netlify-cms",
   "main": "netlify-cms-oauth-cloudflare-worker.js",
@@ -8,6 +8,19 @@
   "release": {
     "branches": [
       "main"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "addEventListener",
+      "fetch", 
+      "Response", 
+      "GH_REPO", 
+      "GH_SCOPE", 
+      "GH_CLIENT_SECRET", 
+      "GH_CLIENT_ID", 
+      "STATE_SECRET", 
+      "EXTRA_WRITABLE_JSON" 
     ]
   }
 }
